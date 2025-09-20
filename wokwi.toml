@@ -2,6 +2,9 @@
 version = 1
 firmware = 'examples/.esphome/build/epaper/.pioenvs/epaper/firmware.bin'
 elf = 'examples/.esphome/build/epaper/.pioenvs/epaper/firmware.elf'
+gdbServerPort=3333
+
+
 
 # wifi SSID is Wokwi-GUEST
 # https://docs.wokwi.com/guides/esp32-wifi

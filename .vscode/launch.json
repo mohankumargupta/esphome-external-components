@@ -9,6 +9,16 @@
       "args": ["compile", "examples/example.yaml"],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}"
-    }
+    },
+    {
+      "name": "Wokwi GDB",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/examples/.esphome/build/epaper/.pioenvs/epaper/firmware.elf",
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "${userHome}/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-gdb.exe",
+      "miDebuggerServerAddress": "localhost:3333"
+    }    
   ]
 }
