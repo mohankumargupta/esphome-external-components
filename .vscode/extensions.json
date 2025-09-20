@@ -3,6 +3,7 @@
         "ms-vscode.cpptools",
         "tamasfe.even-better-toml",
         "ms-python.python",
-        "esphome.esphome-vscode"
+        "esphome.esphome-vscode",
+        "wokwi.wokwi-vscode"
     ]
 }

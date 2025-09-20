@@ -7,3 +7,4 @@ _main:
 compile:
     uv run --with=pip python -m esphome compile examples/example.yaml
 
+
