@@ -1,0 +1,36 @@
+esphome:
+  name: epaper
+
+esp32:
+  board: esp32dev
+  framework: 
+    type: arduino
+
+logger:
+
+external_components:
+  - source: 
+      type: local
+      path: ../components
+
+spi:
+  clk_pin: GPIO4
+  mosi_pin: GPIO5
+
+display:
+  - platform: wokwi_epaper
+    # model: gdey029t94
+    model: 2.90inv2
+    cs_pin: GPIO15
+    dc_pin: GPIO21
+    busy_pin: GPIO23
+    reset_pin: GPIO22
+    rotation: 270
+    full_update_every: 12 # every 12th time
+    update_interval: 60s
+    reset_duration: 5ms
+    lambda: |-
+      it.filled_rectangle(40, 40, 30, 42);
+
+
+
