@@ -26,8 +26,8 @@ spi:
 #     size: 16
 
 display:
-  - platform: wokwi_epaper
-    model: 2.90in
+  - platform: wokwi_waveshare_epaper_bruteforce
+    model: 2.90inv2
     cs_pin: GPIO5
     dc_pin: GPIO22
     busy_pin: GPIO4
@@ -35,10 +35,9 @@ display:
     rotation: 0
     #full_update_every: 1 # every 12th time
     update_interval: 60s
-    reset_duration: 500ms
+    # reset_duration: 500ms
     lambda: |-
-      it.filled_rectangle(0, 0, 20, 20, COLOR_OFF);
-      it.filled_rectangle(50, 50, 50, 50, COLOR_ON);
+        ESP_LOGD("lambda:", "lambda works!");
 
 
 
