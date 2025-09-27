@@ -43,6 +43,8 @@ namespace esphome
             void dump_config() override;
 
             void reset();
+            void command(uint8_t cmd);
+            void cmd_data(const uint8_t *data);
 
             int get_width_internal() override;
             int get_height_internal() override;
@@ -52,6 +54,7 @@ namespace esphome
 
         protected:
             uint32_t full_update_every_{30};
+            bool wait_until_idle_();
 
 
 
