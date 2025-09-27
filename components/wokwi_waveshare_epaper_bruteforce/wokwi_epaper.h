@@ -51,6 +51,7 @@ namespace esphome
             void draw_absolute_pixel_internal(int x, int y, Color color) override;
 
         protected:
+            uint32_t full_update_every_{30};
 
 
 

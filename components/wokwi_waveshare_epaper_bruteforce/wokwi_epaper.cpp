@@ -13,10 +13,10 @@ namespace esphome
 
         void WaveshareEPaperTypeA::dump_config()
         {
-            // ESP_LOGCONFIG(TAG, "  Full Update Every: %" PRIu32, this->full_update_every_);
-            // LOG_PIN("  Reset Pin: ", this->reset_pin_);
-            // LOG_PIN("  DC Pin: ", this->dc_pin_);
-            // LOG_PIN("  Busy Pin: ", this->busy_pin_);
+            ESP_LOGCONFIG(TAG, "  Full Update Every: %" PRIu32, this->full_update_every_);
+            LOG_PIN("  Reset Pin: ", this->reset_pin_);
+            LOG_PIN("  DC Pin: ", this->dc_pin_);
+            LOG_PIN("  Busy Pin: ", this->busy_pin_);
             LOG_UPDATE_INTERVAL(this);
         }
 
