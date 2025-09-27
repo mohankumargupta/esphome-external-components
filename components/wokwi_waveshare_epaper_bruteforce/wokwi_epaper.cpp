@@ -24,9 +24,7 @@ namespace esphome
         {
             ESP_LOGD(TAG, "Setup.");
 
-            
-
-            
+            // Setup pins
         }
 
         void WaveshareEPaperTypeA::update()
@@ -46,16 +44,26 @@ namespace esphome
 
         void WaveshareEPaperTypeA::reset()
         {
-            if (this->reset_pin_ != nullptr)
-            {
-                // Hardware reset sequence
-                this->reset_pin_->digital_write(true);
-                delay(200); // RST high
+            if (this->reset_pin_ == nullptr)
+                return;
+
+            // Start reset sequence (step 1: RST high)
+            this->reset_pin_->digital_write(true);
+
+            // After 200ms, pull low
+            this->set_timeout("epaper_reset_low", 200, [this]() {
                 this->reset_pin_->digital_write(false);
-                delay(5); // RST low pulse
-                this->reset_pin_->digital_write(true);
-                delay(200); // RST high again
-            }
+
+                // After 5ms, pull high again
+                this->set_timeout("epaper_reset_high", 5, [this]() {
+                    this->reset_pin_->digital_write(true);
+
+                    // After another 200ms, reset sequence is done
+                    this->set_timeout("epaper_reset_done", 200, [this]() {
+                        ESP_LOGD("epaper", "Reset sequence complete");
+                    });
+                }); 
+            });
         }
 
         void HOT WaveshareEPaperTypeA::draw_absolute_pixel_internal(int x, int y, Color color)
