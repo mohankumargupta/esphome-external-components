@@ -7,7 +7,8 @@
     { "type": "board-epaper-2in9", "id": "epd1", "top": -28.2, "left": 128.88, "attrs": {} },
     { "type": "wokwi-logic-analyzer", "id": "logic1", "top": -153.25, "left": 336, 
       "attrs": {
-         "channelNames": ["MOSI","CLK","CS","DC","RST","BUSY"]
+         "channelNames": "MOSI, CLK,CS,DC,RST,BUSY",
+         "filename": "wokwi-epaper"
     } 
     }
   ],

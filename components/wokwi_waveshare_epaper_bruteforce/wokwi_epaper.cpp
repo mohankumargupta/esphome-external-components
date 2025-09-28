@@ -24,6 +24,11 @@ namespace esphome
         {
             ESP_LOGD(TAG, "Setup.");
 
+            //Setup display buffer
+            //this->init_internal_(this->get_buffer_length_());
+
+
+
             // Setup pins
             this->dc_pin_->setup(); // OUTPUT
             this->dc_pin_->digital_write(false);
@@ -36,6 +41,16 @@ namespace esphome
             {
                 this->busy_pin_->setup(); // INPUT
             }
+
+            this->spi_setup();
+            this->reset();
+
+            //Init sequence
+            //0x12
+            this->command(0x12);  // SWRESET
+            this->wait_until_idle_();
+
+            ESP_LOGD(TAG, "Software reset sent.");
         }
 
         void WaveshareEPaperTypeA::update()
@@ -60,6 +75,17 @@ namespace esphome
 
             // Start reset sequence (step 1: RST high)
             this->reset_pin_->digital_write(true);
+            delay(200);
+            this->reset_pin_->digital_write(false);
+            delay(20);
+            this->reset_pin_->digital_write(true);
+            this->reset_pin_->digital_write(true);
+            delay(200);
+            this->command(0x12);  // SWRESET
+            this->wait_until_idle_();
+            ESP_LOGD(TAG, "software reset sent.");
+
+            /*
 
             // After 200ms, pull low
             this->set_timeout("epaper_reset_low", 200, [this]()
@@ -101,6 +127,8 @@ namespace esphome
 
                     });
                 }); });
+
+            */
         }
 
         bool WaveshareEPaperTypeA::wait_until_idle_()
