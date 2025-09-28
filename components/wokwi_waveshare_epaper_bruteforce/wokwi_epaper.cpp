@@ -45,12 +45,49 @@ namespace esphome
             this->spi_setup();
             this->reset();
 
+            ESP_LOGD(TAG, "Software reset sent.");
+
             //Init sequence
-            //0x12
-            this->command(0x12);  // SWRESET
+            //0x01, 0x27, 0x01, 0x00
+            const uint8_t data1[] = {0x01, 0x27, 0x01, 0x00};
+            this->cmd_data(data1, 3); 
             this->wait_until_idle_();
 
-            ESP_LOGD(TAG, "Software reset sent.");
+            //0x11, 0x03
+            const uint8_t data2[] = {0x11, 0x03};
+            this->cmd_data(data2, 1); 
+            this->wait_until_idle_();
+            delay(20);
+
+            //0x44, 0x00, 0x0F
+            const uint8_t data3[] = {0x44, 0x00, 0x0F};
+            this->cmd_data(data3, 2);
+            this->wait_until_idle_();
+
+            //0x45, 0x00,0x00, 0x27, 0x01
+            const uint8_t data4[] = {0x45, 0x00,0x00, 0x27, 0x01};
+            this->cmd_data(data4, 4);
+            this->wait_until_idle_();
+
+            //0x21, 0x00, 0x80,
+            const uint8_t data5[] = {0x21, 0x00, 0x80};
+            this->cmd_data(data5, 2);
+            this->wait_until_idle_();
+
+
+            //0x4E, 0x00
+            const uint8_t data6[] = {0x4E, 0x00};
+            this->cmd_data(data6, 1);
+            this->wait_until_idle_();            
+
+            //0x4F, 0x00, 0x00
+            const uint8_t data7[] = {0x4F, 0x00, 0x00};
+            this->cmd_data(data7, 2);
+            this->wait_until_idle_();            
+
+            //0x24
+
+            ESP_LOGD(TAG, "Init sequence sent.");
         }
 
         void WaveshareEPaperTypeA::update()
@@ -84,6 +121,7 @@ namespace esphome
             this->command(0x12);  // SWRESET
             this->wait_until_idle_();
             ESP_LOGD(TAG, "software reset sent.");
+
 
             /*
 
@@ -151,13 +189,13 @@ namespace esphome
             return true;
         }
 
-        void WaveshareEPaperTypeA::cmd_data(const uint8_t *c_data)
+        void WaveshareEPaperTypeA::cmd_data(const uint8_t *c_data, size_t length)
         {
             this->dc_pin_->digital_write(false);
             this->enable();
             this->write_byte(c_data[0]);
             this->dc_pin_->digital_write(true);
-            this->write_array(c_data + 1, sizeof(c_data) - 1);
+            this->write_array(c_data + 1, length);
             this->disable();
         }
 
