@@ -45,6 +45,7 @@ namespace esphome
             void reset();
             void command(uint8_t cmd);
             void cmd_data(const uint8_t *data, size_t length);
+            void data_x_times(uint8_t data, uint16_t count);
 
             int get_width_internal() override;
             int get_height_internal() override;

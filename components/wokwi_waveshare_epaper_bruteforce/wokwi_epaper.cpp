@@ -86,6 +86,19 @@ namespace esphome
             this->wait_until_idle_();            
 
             //0x24
+            this->command(0x24);
+            this->data_x_times(0xFF, 4736);
+            this->wait_until_idle_();   
+
+            //0x22, 0xF7
+            const uint8_t data8[] = {0x22, 0xF7};
+            this->cmd_data(data8, 1);
+            this->wait_until_idle_();   
+
+            //0x20
+            this->command(0x20);
+
+
 
             ESP_LOGD(TAG, "Init sequence sent.");
         }
@@ -197,6 +210,12 @@ namespace esphome
             this->dc_pin_->digital_write(true);
             this->write_array(c_data + 1, length);
             this->disable();
+        }
+
+        void WaveshareEPaperTypeA::data_x_times(uint8_t data, uint16_t count) {
+            for (int i=0; i<count; i++) {
+                this->write_byte(data);
+            }
         }
 
         void WaveshareEPaperTypeA::command(uint8_t cmd)
