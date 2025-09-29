@@ -62,8 +62,8 @@ namespace esphome
             this->cmd_data(data3, 2);
             
             //0x18,0x80
-            const uint8_t data4[] = {0x21,0x00,0x80};
-            this->cmd_data(data4, 2);            
+            const uint8_t data4[] = {0x18,0x80};
+            this->cmd_data(data4, 1);            
 
             //this->wait_until_idle_();
 
