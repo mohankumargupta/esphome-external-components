@@ -96,7 +96,7 @@ namespace esphome
             delay(200);
             //0x24
             this->command(0x24);
-            this->data_x_times(0xFF, 4752);
+            this->data_x_times(0xFF, 4736);
 
 
             //this->wait_until_idle_();
