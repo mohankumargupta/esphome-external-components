@@ -22,6 +22,8 @@ namespace esphome
             TTGO_EPAPER_2_13_IN_B74,
         };
 
+     
+
         class WaveshareEPaperTypeA : public display::DisplayBuffer,
                                      public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST,
                                                            spi::CLOCK_POLARITY_LOW,

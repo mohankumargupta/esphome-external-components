@@ -1,0 +1,72 @@
+esphome:
+  name: epaper
+
+esp32:
+  board: esp32dev
+  framework: 
+    type: arduino
+
+output:
+  - platform: gpio
+    pin: GPIO21
+    id: dc_pin
+  - platform: gpio
+    pin: GPIO23
+    id: busy_pin
+  - platform: gpio
+    pin: GPIO22
+    id: reset_pin
+
+wifi:
+  ssid: Wokwi-GUEST
+  on_connect: 
+    then:
+      - lambda: |-
+          //id(spidev)->disable();
+          id(spidev)->enable();
+          id(spidev).write_byte(0x12);
+          id(spidev)->disable();
+          
+# external_components:
+#   - source: 
+#       type: local
+#       path: ../components
+
+spi:
+  clk_pin: GPIO4
+  mosi_pin: GPIO5
+  interface: hardware
+
+spi_device:
+  id: spidev
+  cs_pin: GPIO15
+  data_rate: 2MHz
+  spi_mode: 0
+  bit_order: msb_first
+
+
+
+# font:
+#   - file:
+#       type: gfonts
+#       family: Roboto
+#       weight: 900
+#     id: roboto
+#     size: 16
+
+# display:
+#   - platform: wokwi_waveshare_epaper_bruteforce
+#     model: 2.90inv2
+#     cs_pin: GPIO15
+#     dc_pin: GPIO21
+#     busy_pin: GPIO23
+#     reset_pin: GPIO22
+#     rotation: 0
+#     #full_update_every: 1 # every 12th time
+#     update_interval: 60s
+#     # reset_duration: 500ms
+#     lambda: |-
+#         ESP_LOGD("lambda:", "lambda works!");
+
+
+

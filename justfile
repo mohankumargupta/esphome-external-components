@@ -7,6 +7,9 @@ set windows-shell := ["powershell", "-c"]
 compile:
     uv run --with=pip python -m esphome compile examples/epaper-bruteforce.yaml
 
+raw:
+    uv run --with=pip python -m esphome compile examples/epaper-spi-raw.yaml
+
 pio:
     cd examples/.esphome/build/epaper; uvx --with=pip,platformio pio run -t compiledb
 
