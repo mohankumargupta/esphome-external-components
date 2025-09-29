@@ -89,7 +89,7 @@ namespace esphome
             //0x22, 0xC0
             const uint8_t data10[] = {0x22, 0xC0};
             this->cmd_data(data10, 1);
-            this->wait_until_idle_();   
+            //this->wait_until_idle_();   
 
             //0x20
             this->command(0x20);
@@ -97,6 +97,14 @@ namespace esphome
             //0x24
             this->command(0x24);
             this->data_x_times(0xFF, 4736);
+            //0x26
+            this->command(0x26);
+            this->data_x_times(0xFF, 4736);
+
+            //0x22,0xF4,0x20
+            const uint8_t data11[] = {0x22, 0xF4};
+            this->cmd_data(data11, 1);
+            this->command(0x20);
 
 
             //this->wait_until_idle_();
