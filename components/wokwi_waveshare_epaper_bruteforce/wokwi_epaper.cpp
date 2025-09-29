@@ -13,16 +13,17 @@ namespace esphome
 
         void WaveshareEPaperTypeA::dump_config()
         {
-            ESP_LOGCONFIG(TAG, "  Full Update Every: %" PRIu32, this->full_update_every_);
-            LOG_PIN("  Reset Pin: ", this->reset_pin_);
-            LOG_PIN("  DC Pin: ", this->dc_pin_);
-            LOG_PIN("  Busy Pin: ", this->busy_pin_);
-            LOG_UPDATE_INTERVAL(this);
+            // ESP_LOGCONFIG(TAG, "  Full Update Every: %" PRIu32, this->full_update_every_);
+            // LOG_PIN("  Reset Pin: ", this->reset_pin_);
+            // LOG_PIN("  DC Pin: ", this->dc_pin_);
+            // LOG_PIN("  Busy Pin: ", this->busy_pin_);
+            // LOG_UPDATE_INTERVAL(this);
         }
 
         void WaveshareEPaperTypeA::setup()
         {
             ESP_LOGD(TAG, "Setup.");
+            this->disable();
 
             //Setup display buffer
             //this->init_internal_(this->get_buffer_length_());
@@ -93,13 +94,18 @@ namespace esphome
 
             //0x20
             this->command(0x20);
-            delay(200);
+            delay(15000);
+
+
             //0x24
             this->command(0x24);
-            this->data_x_times(0xFF, 4736);
+            this->data_x_times(0xFB, 200);
+            this->data_x_times(0xFF, 4736 -200);
             //0x26
+            delay(100);
             this->command(0x26);
-            this->data_x_times(0xFF, 4736);
+            this->data_x_times(0xFB, 200);
+            this->data_x_times(0xFF, 4736 -200);
 
             //0x22,0xF4,0x20
             const uint8_t data11[] = {0x22, 0xF4};
