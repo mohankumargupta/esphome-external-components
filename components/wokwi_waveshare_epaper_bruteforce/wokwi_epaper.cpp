@@ -63,7 +63,36 @@ namespace esphome
             
             //0x18,0x80
             const uint8_t data4[] = {0x18,0x80};
-            this->cmd_data(data4, 1);            
+            this->cmd_data(data4, 1);    
+            
+            //0x11,0x03
+            const uint8_t data5[] = {0x11,0x03};
+            this->cmd_data(data5, 1);   
+
+            //0x44,0x00,0x0F
+            const uint8_t data6[] = {0x44,0x00,0x0F};
+            this->cmd_data(data6, 2);             
+
+
+            //0x45, 0x00,0x00, 0x27, 0x01
+            const uint8_t data7[] = {0x45,0x00,0x00,0x27,0x01};
+            this->cmd_data(data7, 4); 
+
+            //0x4E, 0x00
+            const uint8_t data8[] = {0x4E, 0x00};
+            this->cmd_data(data8, 1);
+                      
+            //0x4F, 0x00, 0x00
+            const uint8_t data9[] = {0x4F, 0x00, 0x00};
+            this->cmd_data(data9, 2);
+              
+            //0x22, 0xC0
+            const uint8_t data10[] = {0x22, 0xC0};
+            this->cmd_data(data10, 1);
+            this->wait_until_idle_();   
+
+            //0x20
+            this->command(0x20);
 
             //this->wait_until_idle_();
 
@@ -91,15 +120,7 @@ namespace esphome
             this->wait_until_idle_();
 
 
-            //0x4E, 0x00
-            const uint8_t data6[] = {0x4E, 0x00};
-            this->cmd_data(data6, 1);
-            this->wait_until_idle_();            
-
-            //0x4F, 0x00, 0x00
-            const uint8_t data7[] = {0x4F, 0x00, 0x00};
-            this->cmd_data(data7, 2);
-            this->wait_until_idle_();            
+         
 
             //0x24
             this->command(0x24);
