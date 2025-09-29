@@ -51,7 +51,23 @@ namespace esphome
             //0x01, 0x27, 0x01, 0x00
             const uint8_t data1[] = {0x01, 0x27, 0x01, 0x00};
             this->cmd_data(data1, 3); 
-            this->wait_until_idle_();
+            //this->wait_until_idle_();
+
+            //0x3C, 0x05
+            const uint8_t data2[] = {0x3C, 0x05};
+            this->cmd_data(data2, 1); 
+
+            //0x21,0x00,0x80
+            const uint8_t data3[] = {0x21,0x00,0x80};
+            this->cmd_data(data3, 2);
+            
+            //0x18,0x80
+            const uint8_t data4[] = {0x21,0x00,0x80};
+            this->cmd_data(data4, 2);            
+
+            //this->wait_until_idle_();
+
+            /*
 
             //0x11, 0x03
             const uint8_t data2[] = {0x11, 0x03};
@@ -87,7 +103,9 @@ namespace esphome
 
             //0x24
             this->command(0x24);
-            this->data_x_times(0xFF, 4736);
+            this->data_x_times(0xF8, 4736);
+            // this->data_x_times(0xFF, 4700);
+            // this->data_x_times(0x00, 36);
             this->wait_until_idle_();   
 
             //0x22, 0xF7
@@ -97,7 +115,7 @@ namespace esphome
 
             //0x20
             this->command(0x20);
-
+            */
 
 
             ESP_LOGD(TAG, "Init sequence sent.");
@@ -115,7 +133,7 @@ namespace esphome
 
         int WaveshareEPaperTypeA::get_width_internal()
         {
-            return 176;
+            return 128;
         }
 
         void WaveshareEPaperTypeA::reset()
@@ -132,7 +150,8 @@ namespace esphome
             this->reset_pin_->digital_write(true);
             delay(200);
             this->command(0x12);  // SWRESET
-            this->wait_until_idle_();
+            //this->wait_until_idle_();
+            delay(10);
             ESP_LOGD(TAG, "software reset sent.");
 
 
